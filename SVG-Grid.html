@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Grid Test - Nov 17, 2017 Version</title>
+		<script>
+			function StartUp()
+			{
+				var Grid_Width = 400,
+					Grid_Height = 400;
+				document.getElementById("Panel_First").innerHTML = '<div style="text-align:center;">Click On A Grey Square!<br /><i>Top -> Bottom ; Left -> Right</i></div>';
+				document.getElementById("Panel_Third").innerHTML = '<table border="0px"><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr><tr><td>&nbsp;</td></tr></table>';
+				document.getElementById("Panel_Second").innerHTML = '<svg id="Grid" width="0" height="0"></svg>';
+				document.getElementById("Grid").setAttribute("width", [Grid_Width+12-[Grid_Width/100]]);
+				document.getElementById("Grid").setAttribute("height", [Grid_Height+17-[Grid_Height/100]]);
+				Grid(Grid_Width, Grid_Height);
+			}
+			function Grid(GWidth, GHeight)
+			{
+				bg = '<rect x="0" y="5" width="' + document.getElementById("Grid").getAttribute("width") + '" height="' + document.getElementById("Grid").getAttribute("height") + '" style="fill:grey" />';
+				grid = '';
+				for (i = 0; i < Math.floor(GWidth/10); i++)
+				{
+					for (j = 0; j < Math.floor(GHeight/10); j++)
+					{
+						grid += '<rect onclick="MClick(this)" onmouseenter="GridMouseIn(this)" onmouseleave="GridMouseOut(this)" x="' + [j*11+1] + '" y="' + [i*11+6] + '" width="10" height="10" style="fill:darkgrey" />';
+					}
+				}
+				document.getElementById("Grid").innerHTML = bg + grid;
+			}
+			function GridMouseIn(obj)
+			{
+				obj.style.fill = 'grey'
+			}
+			function GridMouseOut(obj)
+			{
+				obj.style.fill = 'darkgrey';
+			}
+			function MClick(obj)
+			{
+				var x = obj.getAttribute("x");
+				var y = obj.getAttribute("y");
+				document.getElementById("Panel_Third").innerHTML = '<table border="0px" width="100%" height="100%"><tr><td>&nbsp;</td></tr><tr><td><div style="text-align:center;">You clicked on grid #' + [[[Math.floor([[x-1]/10])+1]*1+[Math.floor([[y-6]/10])+1]*1]*1-1+[Math.floor([[y-6]/10])*[[100*document.getElementById("Grid").getAttribute("height")-1700]/990-1]*1]*1] + '.</div></td></tr><tr><td>&nbsp;</td></tr></table>';
+			}
+		</script>
+	</head>
+	<body onload="StartUp()">
+		<table border="1px">
+			<tr>
+				<td>
+					<div id="Panel_First"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="Panel_Second"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="Panel_Third"></div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
